@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>駅選択画面</title>
+  </head>
+  <body>
+    <select name="出発駅選択" size="10">
+      <% @dep_station.each_with_index do |stations, index| %>
+        <option value=<% @dep_station[index].name %>><%= @dep_station[index].name %></option>
+      <% end %>
+    </select>
+
+    <select name="到着駅選択" size="10">
+      <% @arr_station.each_with_index do |stations, index| %>
+        <option value=<% @arr_station[index].name %>><%= @arr_station[index].name %></option>
+      <% end %>
+    </select>
+
+  </body>
+</html>
