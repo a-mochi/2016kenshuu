@@ -6,3 +6,4 @@ gem "rspec"
 gem "capybara"
 gem "sinatra-contrib"
 gem "ekisuke", git: 'git@github.com:ValLaboratory/ekisuke.git'
+gem 'log4r'
