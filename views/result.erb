@@ -5,10 +5,23 @@
     <title>探索結果画面</title>
   </head>
   <body>
-    これ
-    #{dep_station}
-    ↓
-    #{arr_staton}
+    <% @courses.each_with_index do |course, index| %>
+    <% stations = course.stations %>
+    <% lines = course.lines %>
+      合計所要時間：<%= course.time %>分<br>
+      乗り換え回数：<%= course.transfer_count %>回<br>
+      運賃：<%= course.oneway_summary %>円<br>
+      出発時間：<%= course.departure_time %> 到着時間：<%= course.arrival_time %><br>
+      <br>
+      <% lines.each_with_index do |lines, index| %>
+        <%= stations[index].name %><br>
+        <%= lines.name %><br>
+        |<br>
+      <% end %>
+      <%= stations[-1].name %><br>
+      -------------------------------
+      <br>
+    <% end %>
 
   </body>
 </html>
