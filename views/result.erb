@@ -5,23 +5,38 @@
     <title>探索結果画面</title>
   </head>
   <body>
-    <% @courses.each_with_index do |course, index| %>
-    <% stations = course.stations %>
-    <% lines = course.lines %>
-      合計所要時間：<%= course.time %>分<br>
-      乗り換え回数：<%= course.transfer_count %>回<br>
-      運賃：<%= course.oneway_summary %>円<br>
-      出発時間：<%= course.departure_time %> 到着時間：<%= course.arrival_time %><br>
-      <br>
-      <% lines.each_with_index do |lines, index| %>
-        <%= stations[index].name %><br>
-        <%= lines.name %><br>
-        |<br>
-      <% end %>
-      <%= stations[-1].name %><br>
+    <% @dep_mid_courses.each_with_index do |d_course, index| %>
+      <% @d_m_arrtime = d_course.arrival_time.strftime("%H%M") %>
+      <% stations = d_course.stations %>
+      <% lines = d_course.lines %>
+      <% (@mid_arr_courses = Ekisuke::Course.search("#{params[:mid_station]}:#{params[:arr_station]}","20160101",@d_m_arrtime)).each do |m_course| %>
+        合計所要時間：<%= (d_course.time + m_course.time) %>分<br>
+        乗り換え回数：<%= (d_course.transfer_count + m_course.transfer_count) %>回<br>
+        運賃：<%= (d_course.oneway_summary + d_course.oneway_summary ) %>円<br>
+        出発時間：<%= d_course.departure_time.strftime("%H:%M") %> 到着時間：<%= m_course.arrival_time.strftime("%H:%M") %><br>
+        <br>
+        <% lines.each_with_index do |d_lines, index| %>
+          <%= stations[index].name %><br>
+          <%= d_lines.departure_state.datetime.strftime("%H:%M") %><br>
+          <%= d_lines.arrival_state.datetime.strftime("%H:%M") %><br>
+          <%= d_lines.name %><br>
+          |<br>
+        <% end %>
+
+        <% stations = m_course.stations %>
+        <% lines = m_course.lines %>
+        <% lines.each_with_index do |m_lines, index| %>
+          <%= stations[index].name %><br>
+          <%= m_lines.departure_state.datetime.strftime("%H:%M") %><br>
+          <%= m_lines.arrival_state.datetime.strftime("%H:%M") %><br>
+          <%= m_lines.name %><br>
+          |<br>
+        <% end %>
+
+        <%= stations[-1].name %><br>
       -------------------------------
       <br>
-    <% end %>
-
+      <% end %>
+      <% end %>
   </body>
 </html>

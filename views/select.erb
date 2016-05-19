@@ -5,11 +5,16 @@
     <title>駅選択画面</title>
   </head>
   <body>
-    <%= @dep_h %>
     <form action="/result" method="get">
       <select name="dep_station" size="10">
         <% @dep_station.each_with_index do |stations, index| %>
           <option value="<%= @dep_station[index].code %>" ><%= @dep_station[index].name %></option>
+        <% end %>
+      </select>
+
+      <select name="mid_station" size="10">
+        <% @mid_station.each_with_index do |stations, index| %>
+          <option value="<%= @mid_station[index].code %>" ><%= @mid_station[index].name %></option>
         <% end %>
       </select>
 

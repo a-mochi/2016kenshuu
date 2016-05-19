@@ -18,6 +18,7 @@ class MyApp < Sinatra::Base
 
   get '/select' do
     @dep_station = Ekisuke::Station.find(params[:dep_station])
+    @mid_station = Ekisuke::Station.find(params[:mid_station])
     @arr_station = Ekisuke::Station.find(params[:arr_station])
     @dep_h = params[:dep_h]
     @dep_t = params[:dep_t]
@@ -31,7 +32,10 @@ class MyApp < Sinatra::Base
     @dep_t 
 
     # @dep_time = "18" + "00"
-    @courses = Ekisuke::Course.search("#{params[:dep_station]}:#{params[:arr_station]}","20160101",@dep_h)
+    @dep_mid_courses = Ekisuke::Course.search("#{params[:dep_station]}:#{params[:mid_station]}","20160101",@dep_h)
+    
+    
+      
       erb :result
   end
 end
