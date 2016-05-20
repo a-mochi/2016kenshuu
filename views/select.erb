@@ -12,11 +12,25 @@
         <% end %>
       </select>
 
-      <select name="mid_station" size="10">
-        <% @mid_station.each_with_index do |stations, index| %>
-          <option value="<%= @mid_station[index].code %>" ><%= @mid_station[index].name %></option>
+      <% @mid_stations.each_with_index do | m_station, i | %>
+        <% if m_station.empty? %>
+          <% nil; else %>
+          <select name="mid_station<%= i +1 %>" size="10">
+          <% m_station.each_with_index do |stations, index| %>
+              <option value="<%= m_station[index].code %>" ><%= m_station[index].name %></option>
+          <% end %>
+          </select> 
+        <% end %>
+      <% end %>
+
+  <% if @mid_station2 != nil %>
+      <select name="mid_station2" size="10">
+        <% @mid_station2.each_with_index do |stations, index| %>
+          <option value="<%= @mid_station2[index].code %>" ><%= @mid_station2[index].name %></option>
         <% end %>
       </select>
+      <% else; %>
+      <% end %>
 
       <select name="arr_station" size="10">
         <% @arr_station.each_with_index do |stations, index| %>

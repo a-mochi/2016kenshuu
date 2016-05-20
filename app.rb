@@ -13,17 +13,21 @@ class MyApp < Sinatra::Base
   get '/' do
     now_time = Time.now
 
+
     erb :index
   end
 
   get '/select' do
-    @dep_station = Ekisuke::Station.find(params[:dep_station])
-    @mid_station = Ekisuke::Station.find(params[:mid_station])
-    @arr_station = Ekisuke::Station.find(params[:arr_station])
-    @dep_h = params[:dep_h]
-    @dep_t = params[:dep_t]
+      @dep_station = Ekisuke::Station.find(params[:dep_station])
 
-    erb :select
+      @mid_stations = [Ekisuke::Station.find(params[:mid_station1]), Ekisuke::Station.find(params[:mid_station2]), Ekisuke::Station.find(params[:mid_station3]), Ekisuke::Station.find(params[:mid_station4]), Ekisuke::Station.find(params[:mid_station5])]
+
+
+      @arr_station = Ekisuke::Station.find(params[:arr_station])
+      @dep_h = params[:dep_h]
+      @dep_t = params[:dep_t]
+
+      erb :select
   end
 
   #探索結果画面
@@ -33,7 +37,7 @@ class MyApp < Sinatra::Base
 
     # @dep_time = "18" + "00"
     @dep_mid_courses = Ekisuke::Course.search("#{params[:dep_station]}:#{params[:mid_station]}","20160101",@dep_h)
-    
+
     
       
       erb :result

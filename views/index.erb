@@ -7,9 +7,13 @@
   <body>
     けんさく
     <form action="/select" method="get">
-      <input type="text" name="dep_station">
-      <input type="text" name="mid_station">
-      <input type="text" name="arr_station">
+      出発駅<input type="text" name="dep_station"><br>
+
+      <% 5.times do | index | %>
+      途中駅<%= index + 1 %><input type="text" name="mid_station<%= index + 1 %>"><br>
+      <% end %>
+
+      到着駅<input type="text" name="arr_station">
 
       <select name="dep_h">
         <% hour = 0; 24.times do %>
