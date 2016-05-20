@@ -6,11 +6,29 @@
   </head>
   <body>
     けんさく
-    <form action="/result" method="get">
-      <input type="text" name="dep_station">
-      <input type="text" name="arr_station">
+    <form action="/select" method="get">
+      出発駅<input type="text" name="dep_station"><br>
+
+      <% 5.times do | index | %>
+      途中駅<%= index + 1 %><input type="text" name="mid_station<%= index + 1 %>"><br>
+      <% end %>
+
+      到着駅<input type="text" name="arr_station">
+
+      <select name="dep_h">
+        <% hour = 0; 24.times do %>
+          <option value="<%= hour %>"><%= hour %>時</option>
+          <% hour = hour+1 %>
+        <% end %>
+      </select>
+
+      <select name="dep_t">
+        <% time = 0; 60.times do %>
+          <option value="<%= time %>"><%= time %>分</option>
+          <% time = time+1 %>
+        <% end %>
+      </select>
       <input type="submit">
     </form>
-    
   </body>
 </html>
